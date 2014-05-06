@@ -4,7 +4,7 @@
     <script type="text/jsx" src="@routes.Assets.at("javascripts/browser.js")"></script>
     <script type="text/jsx">
         /** @@jsx React.DOM */
-        React.renderComponent(<Browser />, document.getElementById("content"));
+        React.renderComponent(<Browser url="@routes.Application.getProducts" />, document.getElementById("content"));
     </script>
 }
 

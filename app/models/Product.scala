@@ -9,8 +9,9 @@ case class Product(id: Long, name: String, description: String, price: Double, p
 }
 
 class ProductStatus(val product: Product, initialQuantity: Int) {
+  
   require(product != null)
-  require(initialQuantity > 0)
+  require(initialQuantity >= 0)
   
   var _quantity = initialQuantity
   
@@ -27,8 +28,29 @@ class ProductStatus(val product: Product, initialQuantity: Int) {
   
 }
 
-object Products {
+object Product {
+
+  // json converters
+  import play.api.libs.json._
   
+  implicit val product2Json = new Writes[Product] {
+    def writes(product: Product) = Json.obj(
+      "id" -> product.id,
+      "name" -> product.name,
+      "description" -> product.description,
+      "price" -> product.price,
+      "photo" -> (product.photo map (_.getAbsolutePath()))
+    )
+  }
+    
+  implicit val productStatus2Json = new Writes[ProductStatus] {
+    def writes(productStatus: ProductStatus) = Json.obj(
+      "product" -> productStatus.product,
+      "quantity" -> productStatus.quantity
+    )
+  }
+  
+  // inventory (data and data access)
   private val inventory = Seq(
     new ProductStatus(Product(1L, "PlayStation 4", "Sony's 8th generation videogame", 299.99, None), 10),
     new ProductStatus(Product(2L, "XBox One", "Microsoft's 8th generation videogame", 249.99, None), 10),
@@ -44,6 +66,6 @@ object Products {
     ps map (_.available) getOrElse false
   }
   
-  def availableProducts() = inventory filter (_.available) sortBy (_.product.name) map (i => (i.quantity, i.product))
+  def availableProducts() = inventory filter (_.available) sortBy (_.product.name)
   
 }
