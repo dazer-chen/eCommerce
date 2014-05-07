@@ -6,6 +6,11 @@
         /** @@jsx React.DOM */
         React.renderComponent(<Browser url="@routes.Application.getProducts" />, document.getElementById("content"));
     </script>
+    <script type="text/javascript">
+        jQuery(document).ready(function($) {
+            $(".addToCart").tooltip();
+        });
+    </script>
 }
 
 @main("e-Commerce Prototype", scripts) {
