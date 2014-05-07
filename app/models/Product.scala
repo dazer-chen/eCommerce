@@ -52,12 +52,12 @@ object Product {
   
   // inventory (data and data access)
   private val inventory = Seq(
-    new ProductStatus(Product(1L, "PlayStation 4", "Sony's 8th generation videogame", 299.99, None), 10),
-    new ProductStatus(Product(2L, "XBox One", "Microsoft's 8th generation videogame", 249.99, None), 10),
-    new ProductStatus(Product(3L, "PlayStation Vita", "Sony's portable videogame", 179.99, None), 30),
-    new ProductStatus(Product(4L, "2DS", "Nintendo's portable videogame", 119.99, None), 45),
-    new ProductStatus(Product(5L, "3DS", "Nintendo's portable videogame", 129.99, None), 45),
-    new ProductStatus(Product(6L, "3DS XL", "Nintendo's portable videogame", 149.99, None), 45),
+    new ProductStatus(Product(1L, "PlayStation 4", "Sony's 8th generation console", 299.99, None), 10),
+    new ProductStatus(Product(2L, "XBox One", "Microsoft's 8th generation console", 249.99, None), 10),
+    new ProductStatus(Product(3L, "PlayStation Vita", "Sony's portable console", 179.99, None), 30),
+    new ProductStatus(Product(4L, "2DS", "Nintendo's portable console", 119.99, None), 45),
+    new ProductStatus(Product(5L, "3DS", "Nintendo's portable console", 129.99, None), 45),
+    new ProductStatus(Product(6L, "3DS XL", "Nintendo's portable console", 149.99, None), 45),
     new ProductStatus(Product(7L, "Genesis", "Sega's 16 bits console", 39.99, None), 0)
   )
   
