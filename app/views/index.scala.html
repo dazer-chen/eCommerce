@@ -15,7 +15,8 @@
 
 @main("e-Commerce Prototype", scripts) {
     @helper.javascriptRouter("jsRoutes")(
-        routes.javascript.Application.shoppingCart
+        routes.javascript.Application.shoppingCart,
+        routes.javascript.Application.updateShoppingCart
     )
     
     <div class="container">

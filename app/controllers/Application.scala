@@ -28,5 +28,10 @@ object Application extends Controller {
     val json = Json.toJson(ShoppingCart.items)
     Ok(json)
   }
+
+  def updateShoppingCart(productId: Long, amount: Int) = Action {
+    val json = Json.toJson(ShoppingCart.add(productId, amount))
+    Ok(json)
+  }
   
 }

@@ -3,12 +3,13 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index
-GET     /shoppingCart               controllers.Application.shoppingCart
+GET     /                                       controllers.Application.index
+GET     /shoppingCart                           controllers.Application.shoppingCart
 
 # ajax requests
-GET     /getProducts                controllers.Application.getProducts
-GET     /shoppingCart/items         controllers.Application.getCartItems
+GET     /getProducts                            controllers.Application.getProducts
+GET     /shoppingCart/items                     controllers.Application.getCartItems
+PUT     /shoppingCart                           controllers.Application.updateShoppingCart(productId: Long, amount: Int)
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.at(path="/public", file)
+GET     /assets/*file                           controllers.Assets.at(path="/public", file)

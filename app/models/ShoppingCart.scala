@@ -24,7 +24,9 @@ object ShoppingCart {
   private var cart: Map[Long, CartItem] = Map()
   
   def items = (Seq() ++ cart.values) sortBy (_.product.name)
-  
+
+  def itemsCount = (items :/ 0)(_.quantity + _)
+
   def add(productId: Long, amount: Int): Boolean = {
     cart.get(productId) map (updateItem(_, amount)) getOrElse (addItem(productId, amount)) 
   }

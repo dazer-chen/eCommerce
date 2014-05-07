@@ -51,16 +51,37 @@ var Browser = React.createClass({
 			}.bind(this)
 		});
 	},
+	__loadCartCount: function() {
+		$.ajax({
+			url: "",
+			dataType: "json",
+			success: function(count) {
+				this.setState({ cartCount: count });
+			}.bind(this)
+		});
+	}
 	__addToCart: function(productId) {
 		console.log("adding product #" + productId + " to cart");
-		this.setState({ cartCount: this.state.cartCount + 1 });
+
+		var amount = 1;
+		var route = jsRoutes.controllers.Application.updateShoppingCart(productId, amount);
+		$.ajax({
+			type: route.type,
+			url: route.url,
+			dataType: "json",
+			success: function(updated) {
+				if (updated) {
+					this.setState({ cartCount: this.state.cartCount + amount });
+				}
+			}.bind(this)
+		});
 	},
 	getInitialState: function() {
 		return { products: [], cartCount: 0 };
 	},
 	componentWillMount: function() {
 		this.__loadProducts();
-		// setInterval(this.__loadProducts(), this.props.pollInterval);
+		this.__loadCartCount();
 	},
 	render: function() {
 		var handler = this.__addToCart
