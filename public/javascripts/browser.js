@@ -1,5 +1,21 @@
 /** @jsx React.DOM */
 
+var ShoppingCartButton = React.createClass({
+	getInitialState: function() {
+		return ({ count: 0 });
+	},
+	render: function() {
+		var cartUrl = jsRoutes.controllers.Application.shoppingCart().url;
+		return (
+			<div className="shoppingCartBtn text-right">
+				<a className="btn btn-default btn-sm" href={cartUrl}>
+					<span className="glyphicon glyphicon-shopping-cart"></span> Shopping Cart ({this.state.count})
+				</a>
+			</div>
+		);
+	}
+});
+
 var Product = React.createClass({
 	render: function() {
 		return (
@@ -37,6 +53,8 @@ var Browser = React.createClass({
 		
 		return (
 			<div className="browser">
+				<ShoppingCartButton />
+				
 				<table className="table table-striped">
 					<thead>
 						<tr>

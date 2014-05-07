@@ -10,16 +10,16 @@ case class Product(id: Long, name: String, description: String, price: Double, p
 
 class ProductStatus(val product: Product, initialQuantity: Int) {
   
-  require(product != null)
-  require(initialQuantity >= 0)
+  require(product != null, "product cannot be null")
+  require(initialQuantity >= 0, "initialQuantity must be >= 0")
   
   var _quantity = initialQuantity
   
   def quantity = _quantity
   
-  def changeQuantity(delta: Int): Boolean = {
-    if (_quantity + delta > 0) {
-      _quantity += delta
+  def updateQuantity(amount: Int): Boolean = {
+    if (_quantity + amount > 0) {
+      _quantity += amount
       true
     } else false
   }
@@ -61,11 +61,20 @@ object Product {
     new ProductStatus(Product(7L, "Genesis", "Sega's 16 bits console", 39.99, None), 0)
   )
   
+  def findById(id: Long): Option[Product] = inventory find (_.product.id == id) map (_.product)
+  
+  private def findStatusById(productId: Long): Option[ProductStatus] = inventory find (_.product.id == productId)
+  
   def available(productId: Long): Boolean = {
-    val ps = inventory find (i => i.product.id == productId)
+    val ps = findStatusById(productId)
     ps map (_.available) getOrElse false
   }
   
   def availableProducts() = inventory filter (_.available) sortBy (_.product.name)
+  
+  def updateQuantity(productId: Long, amount: Int): Boolean = {
+    val ps = findStatusById(productId)
+    ps map (_.updateQuantity(amount)) getOrElse false
+  }
   
 }

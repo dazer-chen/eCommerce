@@ -1,0 +1,24 @@
+@()
+
+@scripts = {
+    <script type="text/jsx" src="@routes.Assets.at("javascripts/cart.js")"></script>
+    <script type="text/jsx">
+        /** @@jsx React.DOM */
+        React.renderComponent(<ShoppingCart url="@routes.Application.getCartItems" />, document.getElementById("content"));
+    </script>
+}
+
+@main("e-Commerce Prototype", scripts) {
+    <div class="container">
+        <h3>Shopping Cart</h3>
+        <h5>e-Commerce Prototype</h5>
+        <hr />
+        
+        <p class="text-right">
+            <a class="btn btn-default btn-sm" href="@routes.Application.index()">
+                <span class="glyphicon glyphicon-home"></span> Continue shopping
+            </a>
+        </p>
+        <div id="content"></div>
+    </div>
+}

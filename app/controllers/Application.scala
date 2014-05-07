@@ -6,15 +6,26 @@ import play.api.libs.json._
 
 import models._
 import models.Product.{ product2Json, productStatus2Json }
+import models.CartItem.cartItem2Json
 
 object Application extends Controller {
 
-  def index = Action {
+  def index = Action { implicit req =>
     Ok(views.html.index())
   }
   
+  def shoppingCart = Action {
+    Ok(views.html.shoppingCart())
+  }
+  
+  // ajax calls
   def getProducts = Action {
     val json = Json.toJson(Product.availableProducts())
+    Ok(json)
+  }
+  
+  def getCartItems = Action {
+    val json = Json.toJson(ShoppingCart.items)
     Ok(json)
   }
   

@@ -4,7 +4,11 @@
 
 # Home page
 GET     /                           controllers.Application.index
+GET     /shoppingCart               controllers.Application.shoppingCart
+
+# ajax requests
 GET     /getProducts                controllers.Application.getProducts
+GET     /shoppingCart/items         controllers.Application.getCartItems
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
