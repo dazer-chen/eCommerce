@@ -2,11 +2,11 @@
 
 var ShoppingCartButton = React.createClass({
 	render: function() {
-		var cartUrl = jsRoutes.controllers.Application.shoppingCart().url;
+		var route = jsRoutes.controllers.Application.shoppingCart();
 		return (
 			<div className="shoppingCartBtn text-right">
 				<a
-					href={cartUrl}
+					href={route.url}
 					className="btn btn-default"
 					title="Shopping cart"
 					data-toggle="tooltip">
@@ -43,8 +43,9 @@ var Product = React.createClass({
 
 var Browser = React.createClass({
 	__loadProducts: function() {
+		var route = jsRoutes.controllers.Application.getProducts();
 		$.ajax({
-			url: this.props.url,
+			url: route.url,
 			dataType: "json",
 			success: function(data) {
 				this.setState({ products: data });
@@ -52,14 +53,15 @@ var Browser = React.createClass({
 		});
 	},
 	__loadCartCount: function() {
+		var route = jsRoutes.controllers.Application.getCartCount();
 		$.ajax({
-			url: "",
+			url: route.url,
 			dataType: "json",
 			success: function(count) {
 				this.setState({ cartCount: count });
 			}.bind(this)
 		});
-	}
+	},
 	__addToCart: function(productId) {
 		console.log("adding product #" + productId + " to cart");
 
@@ -71,7 +73,14 @@ var Browser = React.createClass({
 			dataType: "json",
 			success: function(updated) {
 				if (updated) {
-					this.setState({ cartCount: this.state.cartCount + amount });
+					var updatedProducts = this.state.products.map(function(p) {
+						if (p.product.id == productId) {
+							p.quantity -= amount;
+						}
+						return p;
+					});
+					
+					this.setState({ products: updatedProducts, cartCount: this.state.cartCount + amount });
 				}
 			}.bind(this)
 		});

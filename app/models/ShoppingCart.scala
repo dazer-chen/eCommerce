@@ -25,7 +25,7 @@ object ShoppingCart {
   
   def items = (Seq() ++ cart.values) sortBy (_.product.name)
 
-  def itemsCount = (items :/ 0)(_.quantity + _)
+  def itemsCount = (cart.values :\ 0)(_.quantity + _)
 
   def add(productId: Long, amount: Int): Boolean = {
     cart.get(productId) map (updateItem(_, amount)) getOrElse (addItem(productId, amount)) 

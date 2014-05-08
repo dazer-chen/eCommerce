@@ -14,7 +14,7 @@ object Application extends Controller {
     Ok(views.html.index())
   }
   
-  def shoppingCart = Action {
+  def shoppingCart = Action { implicit req =>
     Ok(views.html.shoppingCart())
   }
   
@@ -26,6 +26,11 @@ object Application extends Controller {
   
   def getCartItems = Action {
     val json = Json.toJson(ShoppingCart.items)
+    Ok(json)
+  }
+  
+  def getCartCount = Action {
+    val json = Json.toJson(ShoppingCart.itemsCount)
     Ok(json)
   }
 

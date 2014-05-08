@@ -4,19 +4,16 @@
     <script type="text/jsx" src="@routes.Assets.at("javascripts/browser.js")"></script>
     <script type="text/jsx">
         /** @@jsx React.DOM */
-        React.renderComponent(<Browser url="@routes.Application.getProducts" />, document.getElementById("content"));
-    </script>
-    <script type="text/javascript">
-        jQuery(document).ready(function($) {
-            $(".addToCart").tooltip();
-        });
+        React.renderComponent(<Browser />, document.getElementById("content"));
     </script>
 }
 
 @main("e-Commerce Prototype", scripts) {
     @helper.javascriptRouter("jsRoutes")(
+        routes.javascript.Application.getProducts,
         routes.javascript.Application.shoppingCart,
-        routes.javascript.Application.updateShoppingCart
+        routes.javascript.Application.updateShoppingCart,
+        routes.javascript.Application.getCartCount
     )
     
     <div class="container">

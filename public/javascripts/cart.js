@@ -7,8 +7,8 @@ var CartItem = React.createClass({
 			<tr className="cartItem">
 				<td>{this.props.data.name}</td>
 				<td>{this.props.data.quantity}</td>
-				<td>{this.props.data.price}</td>
-				<td>{totalPrice}</td>
+				<td className="price">{this.props.data.price}</td>
+				<td className="price">{totalPrice}</td>
 			</tr>
 		);
 	}
@@ -16,13 +16,22 @@ var CartItem = React.createClass({
 
 var ShoppingCart = React.createClass({
 	__loadItems: function() {
+		var route = jsRoutes.controllers.Application.getCartItems();
 		$.ajax({
-			url: this.props.url,
+			url: route.url,
 			dataType: "json",
 			success: function(data) {
 				this.setState({ items: data });
 			}.bind(this)
 		});
+	},
+	__grandTotal: function() {
+		var grandTotal = 0;
+		this.state.items.forEach(function(i) {
+			grandTotal += (i.quantity * i.price);
+		});
+		
+		return grandTotal;
 	},
 	getInitialState: function() {
 		return ({ items: [] });
@@ -31,6 +40,7 @@ var ShoppingCart = React.createClass({
 		this.__loadItems();
 	},
 	render: function() {
+		var grandTotal = this.__grandTotal();
 		var nodes = this.state.items.map(function (i) {
 			return <CartItem data={i} key={i.productId} />;
 		});
@@ -48,6 +58,12 @@ var ShoppingCart = React.createClass({
 					<tbody>
 						{nodes}
 					</tbody>
+					<tfoot>
+						<tr>
+							<th colSpan="3" className="text-right">Grand total</th>
+							<th className="price">{grandTotal}</th>
+						</tr>
+					</tfoot>
 				</table>
 			</div>
 		);

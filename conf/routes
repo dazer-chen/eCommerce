@@ -9,6 +9,7 @@ GET     /shoppingCart                           controllers.Application.shopping
 # ajax requests
 GET     /getProducts                            controllers.Application.getProducts
 GET     /shoppingCart/items                     controllers.Application.getCartItems
+GET     /shoppingCart/count                     controllers.Application.getCartCount
 PUT     /shoppingCart                           controllers.Application.updateShoppingCart(productId: Long, amount: Int)
 
 # Map static resources from the /public folder to the /assets URL path
