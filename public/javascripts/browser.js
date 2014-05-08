@@ -24,7 +24,7 @@ var Product = React.createClass({
 			<tr>
 				<td>{this.props.data.product.name}</td>
 				<td>{this.props.data.product.description}</td>
-				<td>{this.props.data.product.price}</td>
+				<td className="price">{this.props.data.product.price}</td>
 				<td>{this.props.data.quantity}</td>
 				<td>
 					<button 
@@ -85,12 +85,21 @@ var Browser = React.createClass({
 			}.bind(this)
 		});
 	},
+	__priceFormat: function(rootNode) {
+		$(rootNode).find("td.price").priceFormat({ prefix: "$" });
+	},
 	getInitialState: function() {
 		return { products: [], cartCount: 0 };
 	},
 	componentWillMount: function() {
 		this.__loadProducts();
 		this.__loadCartCount();
+	},
+	componentDidMount: function() {
+		this.__priceFormat(this.getDOMNode());
+	},
+	componentDidUpdate: function() {
+		this.__priceFormat(this.getDOMNode());
 	},
 	render: function() {
 		var handler = this.__addToCart
