@@ -15,6 +15,7 @@ var CartItem = React.createClass({
 });
 
 var ShoppingCart = React.createClass({
+	__priceFormatParams: { prefix: "$" },
 	__loadItems: function() {
 		var route = jsRoutes.controllers.Application.getCartItems();
 		$.ajax({
@@ -33,11 +34,20 @@ var ShoppingCart = React.createClass({
 		
 		return grandTotal;
 	},
+	__priceFormat: function(rootNode) {
+		$(rootNode).find(".price").priceFormat(this.__priceFormatParams);
+	},
 	getInitialState: function() {
 		return ({ items: [] });
 	},
 	componentWillMount: function() {
 		this.__loadItems();
+	},
+	componentDidMount: function() {
+		this.__priceFormat(this.getDOMNode());
+	},
+	componentDidUpdate: function() {
+		this.__priceFormat(this.getDOMNode());
 	},
 	render: function() {
 		var grandTotal = this.__grandTotal();
